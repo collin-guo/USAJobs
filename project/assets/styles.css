@@ -1,70 +1,79 @@
 body {
-    font-family: 'Times New Roman', Times, serif, ;
+    font-family: 'Times New Roman', Times, serif;
     background-color: #f5f7f8;
     margin: 0;
     padding: 0;
-  }
-  
-  header, footer {
+}
+
+header, footer {
     text-align: center;
     background-color: #4c5df2;
     padding: 20px;
-  }
-  
-  footer a {
+}
+
+footer a {
     margin: 0 10px;
     color: #0b0800;
     text-decoration: none;
-  }
-  
-  h1, h2 {
+}
+
+h1, h2 {
     color: #060000;
-  }
-  
-  #search {
+}
+
+#search {
     background-color: #f9de31;
     padding: 20px;
     text-align: center;
-  }
-  
-  #search input {
+}
+
+#search input {
     padding: 10px;
     width: 70%;
     margin-bottom: 10px;
-  }
-  
-  #skills label {
-    display: block;
-    margin: 5px 0;
-  }
-  
-  #submit-search {
+}
+
+#content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+#skills {
+    width: 45%;
+    text-align: center; 
+}
+
+#popular-jobs {
+    width: 45%;
+    text-align: left;
+}
+
+#submit-search {
     padding: 10px 20px;
     background-color: #3e7640;
     color: white;
     border: none;
     cursor: pointer;
-  }
-  
-  #submit-search:hover {
+    display: block;
+    margin: 20px auto; 
+}
+
+#submit-search:hover {
     background-color: #45a049;
-  }
-  
-  #popular-jobs ul {
+}
+
+#popular-jobs ul {
     list-style-type: none;
-  }
-  
-  #popular-jobs a {
+}
+
+#popular-jobs a {
     color: #007BFF;
-  }
-  
-  #about-content, #help-content {
+}
+
+#about-content, #help-content {
     background-color: #d1e4d6;
     padding: 20px;
     margin: 20px;
-  }
-  
-  section {
-    margin: 20px;
-  }
+}
   
