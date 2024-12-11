@@ -13,22 +13,27 @@
   <section id="search">
     <h2>Search for Your Next Job</h2>
     <input type="text" id="search-bar" placeholder="Enter job title or skill...">
-    <div id="skills">
-      <label><input type="checkbox" name="skills"> Skill 1</label>
-      <label><input type="checkbox" name="skills"> Skill 2</label>
-      <label><input type="checkbox" name="skills"> Skill 3</label>
-      <label><input type="checkbox" name="skills"> Skill 4</label>
+    
+    <div id="content-wrapper">
+      <div id="skills">
+        <h3>Skills</h3>
+        <label><input type="checkbox" name="skills"> Skill 1</label><br>
+        <label><input type="checkbox" name="skills"> Skill 2</label><br>
+        <label><input type="checkbox" name="skills"> Skill 3</label><br>
+        <label><input type="checkbox" name="skills"> Skill 4</label><br>
+      </div>
+  
+      <div id="popular-jobs">
+        <h3>Learn More About Popular Jobs</h3>
+        <ul>
+          <li><a href="#">Job 1</a></li>
+          <li><a href="#">Job 2</a></li>
+          <li><a href="#">Job 3</a></li>
+        </ul>
+      </div>
     </div>
+  
     <button id="submit-search">Submit Search</button>
-  </section>
-
-  <section id="popular-jobs">
-    <h2>Learn More About Popular Jobs</h2>
-    <ul>
-      <li><a href="#">Job 1</a></li>
-      <li><a href="#">Job 2</a></li>
-      <li><a href="#">Job 3</a></li>
-    </ul>
   </section>
 
   <footer>
@@ -38,3 +43,4 @@
   <script src="assets/script.js"></script>
 </body>
 </html>
+
