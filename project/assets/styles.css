@@ -3,77 +3,135 @@ body {
     background-color: #f5f7f8;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
 }
 
 header, footer {
     text-align: center;
     background-color: #4c5df2;
+    color: white;
     padding: 20px;
+    font-size: 1.2em;
 }
 
 footer a {
     margin: 0 10px;
-    color: #0b0800;
+    color: #ffffff;
     text-decoration: none;
+    font-weight: bold;
 }
 
-h1, h2 {
+footer a:hover {
+    text-decoration: underline;
+}
+
+h1, h2, h3 {
     color: #060000;
+    text-align: center;
 }
 
+/* Search Section */
 #search {
     background-color: #f9de31;
     padding: 20px;
     text-align: center;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #search input {
     padding: 10px;
     width: 70%;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
 }
 
 #content-wrapper {
     display: flex;
     justify-content: space-between;
-    margin: 20px 0;
+    gap: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
 }
 
 #skills {
     width: 45%;
-    text-align: center; 
+    text-align: left;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#skills label {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    cursor: pointer; /* Make it clickable for better UX */
+}
+
+#skills input[type="checkbox"] {
+    margin: 10px 20px 10px 20px; /* Add spacing between checkbox and label text */
+    width: 30px;
 }
 
 #popular-jobs {
     width: 45%;
     text-align: left;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+#popular-jobs ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+#popular-jobs ul li {
+    margin: 10px 0;
+}
+
+#popular-jobs ul li a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+#popular-jobs ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Button Styling */
 #submit-search {
     padding: 10px 20px;
     background-color: #3e7640;
     color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    display: block;
-    margin: 20px auto; 
+    font-size: 1em;
+    transition: background-color 0.3s ease;
 }
 
 #submit-search:hover {
     background-color: #45a049;
 }
 
-#popular-jobs ul {
-    list-style-type: none;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    #content-wrapper {
+        flex-direction: column;
+        gap: 10px;
+    }
 
-#popular-jobs a {
-    color: #007BFF;
+    #skills, #popular-jobs {
+        width: 100%;
+    }
 }
-
-#about-content, #help-content {
-    background-color: #d1e4d6;
-    padding: 20px;
-    margin: 20px;
-}
-  
