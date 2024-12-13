@@ -9,7 +9,8 @@ searchButton.addEventListener('click', async () => {
     const keyword = [searchBar, ...skills].filter(Boolean).join(' ');
 
     // Check if the search bar contains only a number or is empty
-    if (!keyword || !isNaN(Number(keyword))) {  // Ensure it's not a number
+    if (!keyword || !isNaN(keyword)) {
+        // Display an alert if no valid input is provided (empty or number)
         alert('Please enter a valid job title or select skills!');
         return;
     }
@@ -44,6 +45,7 @@ searchButton.addEventListener('click', async () => {
             createChart(data.SearchResult.SearchResultItems);
         }
     } catch (error) {
+        // Display a simple alert for API errors
         alert('Failed to fetch job data. Please check the console for details.');
         console.error('Error fetching job data:', error);
     }
@@ -67,9 +69,9 @@ function displayResults(jobs) {
         return;
     }
 
-    // Build the job boxes in a loop and then append them all at once
-    const jobBoxes = jobs.map(job => {
+    jobs.forEach(job => {
         const jobBox = document.createElement('div');
+
         jobBox.innerHTML = `
             <h3>${job.MatchedObjectDescriptor.PositionTitle}</h3>
             <p><strong>Agency:</strong> ${job.MatchedObjectDescriptor.OrganizationName}</p>
@@ -79,18 +81,58 @@ function displayResults(jobs) {
             } USD/year</p>
             <a href="${job.MatchedObjectDescriptor.PositionURI}" target="_blank">View Job Posting</a>
         `;
-        return jobBox;
+
+        resultsSection.appendChild(jobBox);
     });
 
-    jobBoxes.forEach(jobBox => resultsSection.appendChild(jobBox));
     resultsArea.appendChild(resultsSection);
 }
 
 // Function to create a chart with Chart.js
 function createChart(jobs) {
-    const chartArea = document.getElementById('chart-area');
-    if (chartArea) chartArea.remove();  // Ensure the chart area is cleared before adding a new one
+    // Define chart colors to avoid repetition
+    const chartColors = {
+        background: 'rgba(75, 192, 192, 0.6)',
+        border: 'rgba(75, 192, 192, 1)'
+    };
 
+    // Chart options configuration
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Salaries Chart',
+                font: {
+                    size: 20,
+                    family: 'Arial, sans-serif',
+                    weight: 'bold'
+                },
+                color: '#333'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    };
+
+    // Chart data configuration
+    const chartData = {
+        labels: jobs.map(job => job.MatchedObjectDescriptor.PositionTitle),
+        datasets: [{
+            label: 'Salaries (USD)',
+            data: jobs.map(
+                job => parseFloat(job.MatchedObjectDescriptor.PositionRemuneration[0]?.MinimumRange || 0)
+            ),
+            backgroundColor: chartColors.background,
+            borderColor: chartColors.border,
+            borderWidth: 1
+        }]
+    };
+
+    // Create the chart using Chart.js
     const canvas = document.createElement('canvas');
     canvas.id = 'chart-area';
     canvas.style.marginTop = '20px';
@@ -98,43 +140,10 @@ function createChart(jobs) {
     const resultsArea = document.getElementById('search');
     resultsArea.appendChild(canvas);
 
-    const jobTitles = jobs.map(job => job.MatchedObjectDescriptor.PositionTitle);
-    const salaries = jobs.map(
-        job => parseFloat(job.MatchedObjectDescriptor.PositionRemuneration[0]?.MinimumRange || 0)
-    );
-
     new Chart(canvas, {
         type: 'bar',
-        data: {
-            labels: jobTitles,
-            datasets: [{
-                label: 'Salaries (USD)',
-                data: salaries,
-                backgroundColor: 'rgba(75, 192, 192, 0.6)',  // Increased opacity (less transparent)
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Salaries Chart',  // The title text
-                    font: {
-                        size: 20,  // Adjust title font size
-                        family: 'Arial, sans-serif',  // Set title font family
-                        weight: 'bold'  // Make the title bold
-                    },
-                    color: '#333'  // Set title color
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
+        data: chartData,
+        options: chartOptions
     });
 }
 
