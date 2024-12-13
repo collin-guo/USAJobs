@@ -9,8 +9,7 @@ searchButton.addEventListener('click', async () => {
     const keyword = [searchBar, ...skills].filter(Boolean).join(' ');
 
     // Check if the search bar contains only a number or is empty
-    if (!keyword || !isNaN(keyword)) {
-        // Display an alert if no valid input is provided (empty or number)
+    if (!keyword || !isNaN(Number(keyword))) {  // Ensure it's not a number
         alert('Please enter a valid job title or select skills!');
         return;
     }
@@ -45,7 +44,6 @@ searchButton.addEventListener('click', async () => {
             createChart(data.SearchResult.SearchResultItems);
         }
     } catch (error) {
-        // Display a simple alert for API errors
         alert('Failed to fetch job data. Please check the console for details.');
         console.error('Error fetching job data:', error);
     }
@@ -69,9 +67,9 @@ function displayResults(jobs) {
         return;
     }
 
-    jobs.forEach(job => {
+    // Build the job boxes in a loop and then append them all at once
+    const jobBoxes = jobs.map(job => {
         const jobBox = document.createElement('div');
-
         jobBox.innerHTML = `
             <h3>${job.MatchedObjectDescriptor.PositionTitle}</h3>
             <p><strong>Agency:</strong> ${job.MatchedObjectDescriptor.OrganizationName}</p>
@@ -81,10 +79,10 @@ function displayResults(jobs) {
             } USD/year</p>
             <a href="${job.MatchedObjectDescriptor.PositionURI}" target="_blank">View Job Posting</a>
         `;
-
-        resultsSection.appendChild(jobBox);
+        return jobBox;
     });
 
+    jobBoxes.forEach(jobBox => resultsSection.appendChild(jobBox));
     resultsArea.appendChild(resultsSection);
 }
 
