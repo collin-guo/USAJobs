@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Search</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+</head>
+<body>
+  <header>
+    <h1>Home Page</h1>
+  </header>
+  
+  <section id="search">
+    <h2>Search for Your Next Job</h2>
+    <input type="text" id="search-bar" placeholder="Enter job title or skill...">
+    
+    <div id="content-wrapper">
+      <div id="skills">
+        <h3>Skills</h3>
+        <label><input type="checkbox" value="JavaScript" name="skills"> JavaScript</label><br>
+        <label><input type="checkbox" value="Python" name="skills"> Python</label><br>
+        <label><input type="checkbox" value="SQL" name="skills"> SQL</label><br>
+        <label><input type="checkbox" value="Java" name="skills"> Java</label><br>
+        <label><input type="checkbox" value="Data Analysis" name="skills"> Data Analysis</label><br>
+      </div>
+  
+      <div id="popular-jobs">
+        <h3>Learn More About Popular Jobs</h3>
+        <ul>
+          <li><a href="#">Web Developer</a></li>
+          <li><a href="#">Data Scientist</a></li>
+          <li><a href="#">Software Engineer</a></li>
+        </ul>
+      </div>
+    </div>
+    <button id="submit-search">Submit Search</button>
+  </section>
+
+  <footer>
+    <a href="about.html">About</a> | <a href="help.html">Help</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+  
+</body>
+</html>
