@@ -16,15 +16,18 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchSavedJobs(); // Fetch saved jobs on page load
 });
 
+// Chart instance
+let jobChart;
+
 async function fetchExternalJobs(keyword) {
     console.log("Fetching jobs for keyword:", keyword);
     try {
         const response = await fetch(`http://localhost:3000/api/externalJobs/${keyword}`);
-        console.log("API response:", response);
         if (!response.ok) throw new Error('Error fetching jobs');
         const jobs = await response.json();
         console.log("Jobs received:", jobs);
         displayJobs(jobs, "Search Results from USAJobs");
+        displayJobChart(jobs, "Job Distribution from Search Results");
     } catch (error) {
         console.error("Error fetching jobs:", error.message);
         displayError("Error fetching jobs. Please try again later.");
@@ -35,7 +38,6 @@ async function fetchSavedJobs() {
     console.log("Fetching saved jobs...");
     try {
         const response = await fetch('http://localhost:3000/api/getJobs');
-        console.log("Saved jobs response:", response);
         if (!response.ok) throw new Error('Error fetching saved jobs');
         const jobs = await response.json();
         console.log("Saved jobs received:", jobs);
@@ -82,4 +84,59 @@ function displayError(message) {
         return;
     }
     resultsSection.innerHTML = `<p class="error">${message}</p>`;
+}
+
+// Display Chart
+function displayJobChart(jobs, chartTitle) {
+    const chartContainer = document.getElementById('chart-container');
+    if (!chartContainer) {
+        console.error("Chart container not found in the DOM.");
+        return;
+    }
+
+    // Extract job data for the chart
+    const companies = {};
+    jobs.forEach(job => {
+        companies[job.company] = (companies[job.company] || 0) + 1;
+    });
+
+    const labels = Object.keys(companies);
+    const data = Object.values(companies);
+
+    // Show the chart container
+    chartContainer.style.display = 'block';
+
+    // Destroy previous chart if it exists
+    if (jobChart) {
+        jobChart.destroy();
+    }
+
+    // Create a new chart
+    const ctx = document.getElementById('jobChart').getContext('2d');
+    jobChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Number of Jobs',
+                data,
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: chartTitle,
+                }
+            }
+        }
+    });
 }
