@@ -1,49 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Job Search</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Finder</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Home Page</h1>
-  </header>
-  
-  <section id="search">
-    <h2>Search for Your Next Job</h2>
-    <input type="text" id="search-bar" placeholder="Enter job title or skill...">
-    
-    <div id="content-wrapper">
-      <div id="skills">
-        <h3>Skills</h3>
-        <label><input type="checkbox" value="JavaScript" name="skills"> JavaScript</label><br>
-        <label><input type="checkbox" value="Python" name="skills"> Python</label><br>
-        <label><input type="checkbox" value="SQL" name="skills"> SQL</label><br>
-        <label><input type="checkbox" value="Java" name="skills"> Java</label><br>
-        <label><input type="checkbox" value="Data Analysis" name="skills"> Data Analysis</label><br>
-      </div>
-  
-      <div id="popular-jobs">
-        <h3>Learn More About Popular Jobs</h3>
+    <!-- Navigation Bar -->
+    <nav>
         <ul>
-          <li><a href="#">Web Developer</a></li>
-          <li><a href="#">Data Scientist</a></li>
-          <li><a href="#">Software Engineer</a></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="help.html">Help</a></li>
         </ul>
-      </div>
-    </div>
-    <button id="submit-search">Submit Search</button>
-  </section>
+    </nav>
 
-  <footer>
-    <a href="about.html">About</a> | <a href="help.html">Help</a>
-  </footer>
+    <!-- Main Heading -->
+    <header>
+        <h1>Find Your Next Job</h1>
+        <p>Search for job opportunities using our database or connect directly with USAJobs!</p>
+    </header>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js"></script>
-  
+    <!-- Job Search Section -->
+    <section id="job-search">
+        <h2>Search for Jobs</h2>
+        <form id="search-form">
+            <div class="search-bar-container">
+                <input
+                    type="text"
+                    id="search-keyword"
+                    name="query"
+                    placeholder="Enter job title or keyword"
+                    aria-label="Search Jobs"
+                />
+                <button type="submit" id="submit-search">Search</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Job Results Section -->
+    <section id="results">
+        <h2>Search Results</h2>
+        <!-- Dynamically populated by script.js -->
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Job Finder. All rights reserved.</p>
+    </footer>
+
+    <!-- External Scripts -->
+    <script src="script.js"></script>
 </body>
 </html>
