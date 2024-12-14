@@ -2,14 +2,24 @@ import fetch from 'node-fetch';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { createClient } from '@supabase/supabase-js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.static(__dirname));
 
 // Supabase setup
 const supabaseUrl = 'https://mappoifaerbzgjkbpghc.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hcHBvaWZhZXJiemdqa2JwZ2hjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNDE5NTgyNSwiZXhwIjoyMDQ5NzcxODI1fQ.pyKIySn-clANZ9Dy2fo7MzSIQHjVlhs4kBEI3-w5rEQ';
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+app.get('/', (req, res) => {
+    res.sendFile('home.html', { root: __dirname });
+  });
 
 // Fetch jobs from USAJobs and manipulate data
 app.get('/api/externalJobs/:keyword', async (req, res) => {
