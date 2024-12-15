@@ -187,10 +187,10 @@ async function saveSelectedJobs() {
 
             if (!response.ok) throw new Error('Failed to save job');
         }
-        alert('Selected jobs saved successfully!');
+        Swal.fire('Success', 'Selected jobs saved successfully!', 'success'); // alert message
     } catch (error) {
         console.error('Error saving jobs:', error);
-        alert('Error saving jobs. Please try again later.');
+        Swal.fire('Error', 'Error saving jobs. Please try again later.', 'error'); // alert message
     }
 }
 
@@ -203,10 +203,10 @@ async function deleteJob(jobId) {
 
         if (!response.ok) throw new Error('Failed to delete job');
 
-        alert('Job deleted successfully!');
+        Swal.fire('Success', 'Job deleted successfully!', 'success'); // alert message
         fetchSavedJobs(); // Refresh the saved jobs list
     } catch (error) {
         console.error('Error deleting job:', error);
-        alert('Error deleting job. Please try again later.');
+        Swal.fire('Error', 'Error deleting job. Please try again later.', 'error'); // alert message
     }
 }
