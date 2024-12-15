@@ -27,46 +27,134 @@ Not everyone has access to these resources or how to use them, so we aim to help
 Link to Developer Manual: 
 <a href="README.MD">Developer Manual</a>
 
-## Prerequisites
-Before you begin, ensure you have the following installed:
 
-1. [Node.js](https://nodejs.org/) (Version 14 or higher recommended)
-2. [npm](https://www.npmjs.com/) (Node Package Manager, installed alongside Node.js)
-3. Supabase account and credentials (for database integration)
-
-## Steps to Install
-
-1. **Clone the repository**
-   ```bash
-   git clone <rehttps://github.com/ggellerm/INST377APITesting.gitpository-url>
-   
-   ```
-
-2. **Install dependencies**
-   Run the following command to install all required dependencies listed in `package-lock.json`:
-   ```bash
-   npm install
-   ```
-
-3. **Environment Configuration**
-   - Create a `.env` file in the root directory.
-   - Add the following environment variables with your Supabase credentials:
-     ```env
-     SUPABASE_URL=your_supabase_url
-     SUPABASE_KEY=your_supabase_key
-     PORT=3000
-     ```
-
-4. **Verify Installation**
-   Run the following command to verify the application runs without errors:
-   ```bash
-   node script.js
-   ```
-   If everything is configured correctly, you should see relevant logs in the console.
+### Developer Manual  
+**Project Title**: Federal Job Search Assistant for College Students  
 
 ---
 
+### Table of Contents  
+1. **Installation**  
+2. **Running the Application**  
+3. **Running Tests**  
+4. **API Endpoints**  
+5. **Known Bugs**  
+6. **Future Roadmap**  
 
+---
+
+### 1. Installation  
+
+To set up the project locally, follow these steps:  
+
+1. **Clone the repository**:  
+   ```  
+   git clone https://github.com/your-repo-name/job-search-assistant.git  
+   cd job-search-assistant  
+   ```  
+
+2. **Install dependencies**:  
+   Ensure you have **Node.js** (v16+) and **npm** installed. Run:  
+   ```  
+   npm install  
+   ```  
+
+3. **Set up environment variables**:  
+   - Create a `.env` file in the root directory.  
+   - Add your Supabase credentials:  
+     ```  
+     SUPABASE_URL=your_supabase_url  
+     SUPABASE_KEY=your_supabase_api_key  
+     PORT=3000  
+     ```  
+
+---
+
+### 2. Running the Application  
+
+To run the application locally:  
+
+1. **Start the backend server**:  
+   ```  
+   node server.js  
+   ```  
+   The server will start at:  
+   **http://localhost:3000**  
+
+2. **Serve the frontend files**:  
+   - Open `home.html` using **Live Server** in VSCode.  
+   - Alternatively, manually open the file in your browser.  
+
+3. **Access the application** at:  
+   ```  
+   http://127.0.0.1:5500/home.html  
+   ```  
+
+---
+
+### 3. Running Tests  
+
+- No automated tests have been implemented in this version.  
+- Future developers are encouraged to write unit tests using tools like **Jest** or **Mocha**.  
+- Integration tests for the API endpoints should also be prioritized.  
+
+---
+
+### 4. API Endpoints  
+
+| **Method** | **Endpoint**                 | **Description**                                  |  
+|------------|------------------------------|-------------------------------------------------|  
+| **GET**    | `/api/externalJobs/:keyword` | Fetch job data from the USAJobs external API.    |  
+| **GET**    | `/api/getJobs`               | Retrieve all saved jobs from Supabase.           |  
+| **POST**   | `/api/addJob`                | Save a job to the Supabase database.             |  
+
+**Example Request for `/api/addJob`**:  
+
+- **URL**: `http://localhost:3000/api/addJob`  
+- **Method**: POST  
+- **Body** (JSON):  
+   ```json  
+   {  
+     "title": "Civil Engineer",  
+     "company": "Bureau of Reclamation",  
+     "location": "Sacramento, CA",  
+     "posted_date": "2024-12-11",  
+     "url": "https://example.com/job/123"  
+   }  
+   ```  
+
+---
+
+### 5. Known Bugs  
+
+1. **Mobile Compatibility**:  
+   - The application works on desktop browsers but not on mobile devices.  
+
+2. **API Rate Limit**:  
+   - Frequent calls to the USAJobs API may hit its rate limit and return errors.  
+   - Explore caching solutions to reduce API requests.  
+
+---
+
+### 6. Future Roadmap  
+
+- **Mobile Optimization**: Make the application responsive for iOS and Android devices.  
+- **User Authentication**: Add user accounts to allow saving jobs under individual profiles.  
+- **Advanced Search Filters**: Include filters like location, salary range, and job type.  
+- **Skills-Based Recommendations**: Integrate the **Skills API** for personalized job suggestions.  
+- **Testing Suite**: Implement automated unit and integration tests.  
+- **Performance Improvements**: Optimize API calls with caching and pagination.  
+
+---
+
+### Notes for Future Developers  
+- Update this document regularly as new features, bugs, or changes occur.  
+- Use version control (e.g., Git) to track changes and manage contributions.  
+- Ensure code consistency and readability.  
+
+---
+
+This document provides everything you need to **install**, **run**, and **understand** the system. If you have any issues or suggestions, please document them for future developers.
 
 
 [README.MD]: EADME.M
