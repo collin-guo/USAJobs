@@ -79,6 +79,14 @@ function displayJobs(jobs, title, showCheckbox = false) {
             li.prepend(checkbox); // Add checkbox at the start of the list item
         }
 
+        // Add delete button if on saved.html
+        if (title === "Saved Jobs") {
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = () => deleteJob(job.id); // Use the deleteJob function
+            li.appendChild(deleteButton);
+        }
+
         ul.appendChild(li);
     });
 
@@ -183,5 +191,22 @@ async function saveSelectedJobs() {
     } catch (error) {
         console.error('Error saving jobs:', error);
         alert('Error saving jobs. Please try again later.');
+    }
+}
+
+//Function to delete saved jobs
+async function deleteJob(jobId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/deleteJob/${jobId}`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) throw new Error('Failed to delete job');
+
+        alert('Job deleted successfully!');
+        fetchSavedJobs(); // Refresh the saved jobs list
+    } catch (error) {
+        console.error('Error deleting job:', error);
+        alert('Error deleting job. Please try again later.');
     }
 }

@@ -104,7 +104,7 @@ app.delete('/api/deleteJob/:id', async (req, res) => {
         const { data, error } = await supabase
             .from('jobs')
             .delete()
-            .eq('id', jobId);
+            .eq('id', jobId); // Delete the job with the matching ID
 
         if (error) throw error;
 
