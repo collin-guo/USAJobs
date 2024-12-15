@@ -60,6 +60,22 @@ app.get('/api/externalJobs/:keyword', async (req, res) => {
     }
 });
 
+// Get jobs from Supabase
+app.get('/api/getJobs', async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('jobs')
+            .select('*');
+
+        if (error) throw error;
+
+        res.status(200).json(data);
+    } catch (error) {
+        console.error('Error fetching jobs:', error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // Add job to Supabase
 app.post('/api/addJob', async (req, res) => {
     const { title, company, location, posted_date, url } = req.body; // Updated to expect "url"
@@ -78,18 +94,21 @@ app.post('/api/addJob', async (req, res) => {
     }
 });
 
-// Get jobs from Supabase
-app.get('/api/getJobs', async (req, res) => {
+// Delete job from Supabase
+app.delete('/api/deleteJob/:id', async (req, res) => {
+    const jobId = req.params.id;
+
     try {
         const { data, error } = await supabase
             .from('jobs')
-            .select('*');
+            .delete()
+            .eq('id', jobId);
 
         if (error) throw error;
 
-        res.status(200).json(data);
+        res.status(200).json({ message: 'Job deleted successfully', data });
     } catch (error) {
-        console.error('Error fetching jobs:', error.message);
+        console.error('Error deleting job:', error.message);
         res.status(500).json({ error: error.message });
     }
 });
