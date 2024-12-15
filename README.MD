@@ -24,7 +24,7 @@ Given our context, among the university students, we believe that this tool will
 Not everyone has access to these resources or how to use them, so we aim to help bridge these barriers and ease anxieties with our program.
 
 Link to Developer Manual: 
-<a href="README.html">Developer Manual</a>
+<a href="/Users/abrahamolaleye/Documents/GitHub/INST377APITesting/README.MD">Developer Manual</a>
 
 ## Prerequisites
 Before you begin, ensure you have the following installed:
@@ -66,3 +66,6 @@ Before you begin, ensure you have the following installed:
 ---
 
 
+
+
+[README.MD]: EADME.M

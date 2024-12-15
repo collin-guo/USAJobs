@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import cors from 'cors'; // Import CORS
 import express from 'express';
 import bodyParser from 'body-parser';
 import { createClient } from '@supabase/supabase-js';
@@ -9,8 +10,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
+app.use(cors()); // Enable CORS
 app.use(bodyParser.json());
-app.use(express.static(__dirname));
+app.use(express.static(__dirname)); // Serve static files (e.g., HTML)
 
 // Supabase setup
 const supabaseUrl = 'https://mappoifaerbzgjkbpghc.supabase.co';

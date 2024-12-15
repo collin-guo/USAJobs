@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM fully loaded");
 
     const searchForm = document.getElementById('search-form');
+    const saveJobsButton = document.getElementById('save-jobs-button');
+    
     if (searchForm) {
         searchForm.addEventListener('submit', event => {
             event.preventDefault();
@@ -11,6 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         console.error("Search form not found in the DOM.");
+    }
+
+    if (saveJobsButton) {
+        saveJobsButton.addEventListener('click', saveSelectedJobs);
+    } else {
+        console.error("Save jobs button not found in the DOM.");
     }
 
     fetchSavedJobs(); // Fetch saved jobs on page load
@@ -26,7 +34,7 @@ async function fetchExternalJobs(keyword) {
         if (!response.ok) throw new Error('Error fetching jobs');
         const jobs = await response.json();
         console.log("Jobs received:", jobs);
-        displayJobs(jobs, "Search Results from USAJobs");
+        displayJobs(jobs, "Search Results from USAJobs", true); // Pass 'true' to enable checkbox
         displayJobChart(jobs, "Job Distribution from Search Results");
     } catch (error) {
         console.error("Error fetching jobs:", error.message);
@@ -48,33 +56,40 @@ async function fetchSavedJobs() {
     }
 }
 
-function displayJobs(jobs, title) {
-    const resultsSection = document.getElementById('results');
-    if (!resultsSection) {
-        console.error("Results section not found in the DOM.");
-        return;
-    }
+function displayJobs(jobs, title, showCheckbox = false) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = `<h2>${title}</h2>`;
 
-    resultsSection.innerHTML = `<h3>${title}</h3>`;
+    const ul = document.createElement('ul');
 
-    if (jobs.length === 0) {
-        resultsSection.innerHTML += '<p>No jobs found.</p>';
-        return;
-    }
-
-    const jobList = document.createElement('ul');
     jobs.forEach(job => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-            <strong>${job.title}</strong> - ${job.company}<br>
-            Location: ${job.location}<br>
-            Posted on: ${job.posted_date}<br>
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <strong>${job.title}</strong> - ${job.company} <br>
+            Location: ${job.location} <br>
+            Posted on: ${job.posted_date} <br>
             <a href="${job.url}" target="_blank">View Job</a>
         `;
-        jobList.appendChild(listItem);
+
+        // Add checkbox if needed
+        if (showCheckbox) {
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.dataset.job = JSON.stringify(job); // Store job data in the checkbox
+            li.prepend(checkbox); // Add checkbox at the start of the list item
+        }
+
+        ul.appendChild(li);
     });
 
-    resultsSection.appendChild(jobList);
+    resultsDiv.appendChild(ul);
+
+    // Show the "Save Selected Jobs" button if checkboxes are enabled
+    const saveJobsButton = document.getElementById('save-jobs-button');
+    if (showCheckbox && saveJobsButton) {
+        saveJobsButton.style.display = 'block';
+    }
+
 }
 
 function displayError(message) {
@@ -139,4 +154,34 @@ function displayJobChart(jobs, chartTitle) {
             }
         }
     });
+}
+
+// Function to save selected jobs to the backend
+async function saveSelectedJobs() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const jobsToSave = [];
+
+    checkboxes.forEach(checkbox => {
+        // Each checkbox stores job details in its dataset
+        const jobData = JSON.parse(checkbox.dataset.job);
+        jobsToSave.push(jobData);
+    });
+
+    try {
+        for (const job of jobsToSave) {
+            const response = await fetch('http://localhost:3000/api/addJob', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(job),
+            });
+
+            if (!response.ok) throw new Error('Failed to save job');
+        }
+        alert('Selected jobs saved successfully!');
+    } catch (error) {
+        console.error('Error saving jobs:', error);
+        alert('Error saving jobs. Please try again later.');
+    }
 }
