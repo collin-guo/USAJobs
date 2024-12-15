@@ -30,7 +30,7 @@ let jobChart;
 async function fetchExternalJobs(keyword) {
     console.log("Fetching jobs for keyword:", keyword);
     try {
-        const response = await fetch(`/api/externalJobs/${keyword}`);
+        const response = await fetch(`http://localhost:3000/api/externalJobs/${keyword}`);
         if (!response.ok) throw new Error('Error fetching jobs');
         const jobs = await response.json();
         console.log("Jobs received:", jobs);
@@ -45,7 +45,7 @@ async function fetchExternalJobs(keyword) {
 async function fetchSavedJobs() {
     console.log("Fetching saved jobs...");
     try {
-        const response = await fetch('/api/getJobs');
+        const response = await fetch('http://localhost:3000/api/getJobs');
         if (!response.ok) throw new Error('Error fetching saved jobs');
         const jobs = await response.json();
         console.log("Saved jobs received:", jobs);
@@ -53,48 +53,6 @@ async function fetchSavedJobs() {
     } catch (error) {
         console.error("Error fetching saved jobs:", error.message);
         displayError("Error fetching saved jobs. Please try again later.");
-    }
-}
-
-async function addJobToSupabase(job) {
-    console.log("Adding job to Supabase:", job);
-    try {
-        const response = await fetch('/api/addJob', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(job)
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to add job to Supabase');
-        }
-        console.log("Job added successfully");
-
-         // Show success dialog with job info
-         alert(`Job added successfully:\n\nTitle: ${job.title}\nCompany: ${job.company}\nLocation: ${job.location}\nPosted Date: ${job.posted_date}`);
-    } catch (error) {
-        console.error("Error adding job to Supabase:", error.message);
-    }
-}
-
-async function deleteJobFromSupabase(job) {
-    console.log("Deleting job from Supabase:", job);
-    try {
-        const response = await fetch(`/api/deleteJob/${job.id}`, {
-            method: 'DELETE'
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to delete job from Supabase');
-        }
-        console.log("Job deleted successfully");
-
-        // Reload the saved jobs list after deletion
-        fetchSavedJobs();
-    } catch (error) {
-        console.error("Error deleting job from Supabase:", error.message);
     }
 }
 
@@ -112,7 +70,16 @@ function displayJobs(jobs, title, showCheckbox = false) {
             Posted on: ${job.posted_date} <br>
             <a href="${job.url}" target="_blank">View Job</a>
         `;
-        jobList.appendChild(listItem);
+
+        // Add checkbox if needed
+        if (showCheckbox) {
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.dataset.job = JSON.stringify(job); // Store job data in the checkbox
+            li.prepend(checkbox); // Add checkbox at the start of the list item
+        }
+
+        ul.appendChild(li);
     });
 
     resultsDiv.appendChild(ul);
