@@ -18,7 +18,7 @@ Given our context, among the university students, we believe that this tool will
 Not everyone has access to these resources or how to use them, so we aim to help bridge these barriers and ease anxieties with our program.
 
 Link to Developer Manual: 
-<a href="README.MD">Developer Manual</a>
+<a href="https://github.com/ggellerm/INST377APITesting/tree/main?tab=readme-ov-file#developer-manual">Developer Manual</a>
 
 
 ### Developer Manual  
