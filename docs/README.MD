@@ -20,11 +20,12 @@ Description of target browsers:
 The main stakeholders in this case are the students themselves, hiring managers and agents, employers, career centers, and educational institutions who would want a platform tailored to their students` needs. 
 Our target browsers are the students who are in search for federal jobs. 
 This is an appealing sector and industry as it addresses many disciplines while offering a wide variety of jobs requiring many different skills.
+Our platform is optimized for desktop use and works seamlessly on modern web browsers like Google Chrome, Mozilla Firefox, Safari, and Microsoft Edge. While it’s currently designed primarily for computers, we plan to explore mobile compatibility in the future to better support users on iOS and Android devices.
 Given our context, among the university students, we believe that this tool will be the most useful for third or fourth year students (such as ourselves) as they are directly starting to think about employment after college.
 Not everyone has access to these resources or how to use them, so we aim to help bridge these barriers and ease anxieties with our program.
 
 Link to Developer Manual: 
-<a href="/Users/abrahamolaleye/Documents/GitHub/INST377APITesting/README.MD">Developer Manual</a>
+<a href="README.MD">Developer Manual</a>
 
 ## Prerequisites
 Before you begin, ensure you have the following installed:
