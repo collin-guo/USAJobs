@@ -20,9 +20,9 @@ Link to Developer Manual:
 
 
 ### Developer Manual  
-**Project Title**: Federal Job Search Assistant for College Students  
+**Project Title**: Federal Job Search Tool for Professionals
 
----
+--- 
 
 ### Table of Contents  
 1. **Installation**  
